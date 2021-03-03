@@ -5,7 +5,7 @@
 
 方法一：
   1、将 ncmTranslator.py 脚本放到需要处理的文件夹下    
-     2、执行 ./ncmTranslator.py 
+     2、执行 ./ncmTranslator.py   
 方法二：
   ./ncmTranslator.py {参数：指定要处理的绝对路径}  
     
