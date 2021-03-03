@@ -11,4 +11,8 @@
     
 ps：只在ubuntu下使用过, 使用的python3   
 ps2: 顺便会下载专辑图片到音乐文件所在的路径    
-引用代码：https://github.com/lianglixin/ncmdump/blob/master/folder_dump.py
+引用代码：https://github.com/lianglixin/ncmdump/blob/master/folder_dump.py    
+    
+    
+后台使用：nohup ./ncmTranslator.py > ./process.log 2>&1 &    
+后台使用的方法查看日志：tail -f process.log    
