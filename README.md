@@ -1,0 +1,2 @@
+# ncmTranslatorScript_python
+网易云音乐.ncm音乐格式转换python脚本
