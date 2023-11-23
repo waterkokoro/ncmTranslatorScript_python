@@ -79,13 +79,13 @@ def dump(file_path, file_name_no_suffix):
         if not chunk:
             break
         for i in range(1,chunk_length+1):
-            j = i & 0xff;
+            j = i & 0xff 
             chunk[i-1] ^= key_box[(key_box[j] + key_box[(key_box[j] + j) & 0xff]) & 0xff]
         m.write(chunk)
     m.close()
     f.close()
     try:
-        urllib.request.urlretrieve(meta_data['albumPic'], os.path.join(os.path.split(file_path)[0], file_name_no_suffix) + '.jpg');
+        urllib.request.urlretrieve(meta_data['albumPic'], os.path.join(os.path.split(file_path)[0], file_name_no_suffix) + '.jpg') 
     except Exception as e:
         print('下载专辑图片出错', e)
 
@@ -102,8 +102,8 @@ def file_exist(file_name, file_list, file_list_path):
             continue
         for suffix in music_suffix_list:
             if (file_no_extension(file_name) + "." + suffix) == file:
-                return True;
-    return False;
+                return True 
+    return False 
 
 def recursion(file_name, root_dir, file_list):
     # print('root_dir: ' + root_dir)
@@ -118,7 +118,7 @@ def recursion(file_name, root_dir, file_list):
                 return
             try:
                 print('>>>>>>>>>>>>>>> 开始转码文件: ' + full_file)
-                dump(full_file, file_no_extension(file_name));
+                dump(full_file, file_no_extension(file_name)) 
                 print('>>>>>>>>>>>>>>> 转码文件成功: ' + full_file)
             except Exception as err:
                 print('转码文件失败: ' + full_file + ' error: ' + err)
@@ -132,19 +132,19 @@ def recursion(file_name, root_dir, file_list):
 if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1:
-        rootdir = sys.argv[1]; #如果有输入路径参数，取当前路径参数
+        rootdir = sys.argv[1]  #如果有输入路径参数，取当前路径参数
     else:
         # 没写路径默认走当前文件夹
-        rootdir = os.path.split(os.path.realpath(__file__))[0];
+        rootdir = os.path.split(os.path.realpath(__file__))[0] 
     print('>>>>>>>>>>>>>>> 初始路径层级: ' + rootdir)
     list = os.listdir(rootdir) # Get all files in folder.is
     for i in range(0,len(list)):
         try:
             recursion(list[i], rootdir, list)
         except Exception as e:
-            print('递归处理出现错误');
+            print('递归处理出现错误') 
             logging.exception(e)
         finally:
             pass
 
-    print('全部文件处理完成 ' + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()));
+    print('全部文件处理完成 ' + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) 
