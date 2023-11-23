@@ -10,15 +10,15 @@ pip install requests pycryptodome
 ```
 
 2. 运行
-### 方法一：
-1. 将 `ncmTranslator.py` 脚本放置在包含要处理文件的文件夹中。
-2. 执行 `./ncmTranslator.py` 运行脚本。
+    ### 方法一：
+    1. 将 `ncmTranslator.py` 脚本放置在包含要处理文件的文件夹中。
+    2. 执行 `./ncmTranslator.py` 运行脚本。
 
-### 方法二：
-带有绝对路径参数运行脚本：
-```bash
-./ncmTranslator.py {参数：指定要处理的绝对路径}
-```
+    ### 方法二：
+    带有绝对路径参数运行脚本：
+    ```bash
+    ./ncmTranslator.py {参数：指定要处理的绝对路径}
+    ```
 
 3. 后台运行
 - `nohup ./ncmTranslator.py > ./process.log 2>&1 &`    
