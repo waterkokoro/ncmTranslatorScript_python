@@ -16,3 +16,6 @@ ps2: 顺便会下载专辑图片到音乐文件所在的路径
     
 后台使用：nohup ./ncmTranslator.py > ./process.log 2>&1 &    
 后台使用的方法查看日志：tail -f process.log    
+
+## Stargazers over time
+[![Stargazers over time](https://starchart.cc/waterkokoro/ncmTranslatorScript_python.svg?variant=adaptive)](https://starchart.cc/waterkokoro/ncmTranslatorScript_python)
