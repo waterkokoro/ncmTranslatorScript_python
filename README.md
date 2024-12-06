@@ -19,4 +19,6 @@ ps2: 顺便会下载专辑图片到音乐文件所在的路径
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=waterkokoro/ncmTranslatorScript_python&type=Date)](https://star-history.com/#waterkokoro/ncmTranslatorScript_python&Date)
+## Stargazers over time
+[![Star History](https://starchart.cc/waterkokoro/ncmTranslatorScript_python.svg?variant=light)](https://starchart.cc/waterkokoro/ncmTranslatorScript_python)
+
