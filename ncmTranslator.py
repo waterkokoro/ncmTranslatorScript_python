@@ -12,8 +12,60 @@ import requests
 import time
 
 from Crypto.Cipher import AES
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, APIC, error
+from mutagen.flac import FLAC, Picture
+from mutagen import File as MutagenFile
 
 music_suffix_list = ['mp3', 'wav', 'ape', 'flac', 'MP3', 'WAV', 'APE', 'FLAC']
+
+def embed_cover(audio_path, cover_path, format):
+    try:
+        if not os.path.exists(cover_path):
+            print(f'封面文件不存在: {cover_path}')
+            return False
+        
+        with open(cover_path, 'rb') as f:
+            cover_data = f.read()
+        
+        if format.lower() == 'mp3':
+            audio = MP3(audio_path, ID3=ID3)
+            if not audio.tags:
+                audio.add_tags()
+            
+            audio.tags.add(
+                APIC(
+                    encoding=3,
+                    mime='image/jpeg',
+                    type=3,
+                    desc='Front Cover',
+                    data=cover_data
+                )
+            )
+            audio.save()
+            print(f'封面已嵌入到MP3文件: {audio_path}')
+            return True
+        
+        elif format.lower() == 'flac':
+            audio = FLAC(audio_path)
+            picture = Picture()
+            picture.type = 3
+            picture.mime = 'image/jpeg'
+            picture.desc = 'Front Cover'
+            picture.data = cover_data
+            audio.add_picture(picture)
+            audio.save()
+            print(f'封面已嵌入到FLAC文件: {audio_path}')
+            return True
+        
+        else:
+            print(f'不支持的音频格式: {format}，封面嵌入跳过')
+            return False
+    
+    except Exception as e:
+        print(f'嵌入封面时出错: {e}')
+        return False
+
 def dump(file_path, file_name_no_suffix):
     core_key = binascii.a2b_hex("687A4852416D736F356B496E62617857")
     meta_key = binascii.a2b_hex("2331346C6A6B5F215C5D2630553C2728")
@@ -84,10 +136,17 @@ def dump(file_path, file_name_no_suffix):
         m.write(chunk)
     m.close()
     f.close()
+    
+    audio_file_path = os.path.join(os.path.split(file_path)[0], file_name)
+    cover_file_path = os.path.join(os.path.split(file_path)[0], file_name_no_suffix) + '.jpg'
+    
     try:
-        urllib.request.urlretrieve(meta_data['albumPic'], os.path.join(os.path.split(file_path)[0], file_name_no_suffix) + '.jpg');
+        urllib.request.urlretrieve(meta_data['albumPic'], cover_file_path)
+        print(f'专辑图片已下载: {cover_file_path}')
+        
+        embed_cover(audio_file_path, cover_file_path, meta_data['format'])
     except Exception as e:
-        print('下载专辑图片出错', e)
+        print('下载或嵌入专辑图片出错', e)
 
 def file_extension(path):
     return os.path.splitext(path)[1]
